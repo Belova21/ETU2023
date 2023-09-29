@@ -593,9 +593,9 @@ int main()
                 case 3:
                 {
                     lst.pop_back();
-                    break;
                     cout << "Измененный список: " << endl;
                     lst.printList();
+                    break;
                 }
 
                 case 4:
