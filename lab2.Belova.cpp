@@ -3,9 +3,10 @@
 #include <ctime>
 #include <math.h>
 #include <ctime>
+#include <chrono>
 using namespace std;
 
-void selectionSort(int arr[], int n) {                          // РЎРѕСЂС‚РёСЂРѕРІРєР° РІС‹Р±РѕСЂРѕРј
+void selectionSort(int arr[], int n) {                          // Сортировка выбором
     for (int i = 0; i < n - 1; i++) {
         int minIdx = i;
         for (int j = i + 1; j < n; j++) {
@@ -19,7 +20,7 @@ void selectionSort(int arr[], int n) {                          // РЎРѕСЂС‚РёСЂР
     }
 }
 
-void insertionSort(int arr[], int n) {                          // РЎРѕСЂС‚РёСЂРѕРІРєР° РІСЃС‚Р°РІРєР°РјРё
+void insertionSort(int arr[], int n) {                          // Сортировка вставками
     for (int i = 1; i < n; i++) {
         int key = arr[i];
         int j = i - 1;
@@ -33,7 +34,7 @@ void insertionSort(int arr[], int n) {                          // РЎРѕСЂС‚РёСЂР
     }
 }
 
-void bubbleSort(int arr[], int n) {                             // РЎРѕСЂС‚РёСЂРѕРІРєР° РїСѓР·С‹СЂСЊРєРѕРј
+void bubbleSort(int arr[], int n) {                             // Сортировка пузырьком
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
@@ -43,7 +44,7 @@ void bubbleSort(int arr[], int n) {                             // РЎРѕСЂС‚РёСЂР
     }
 }
 
-void merge(int arr[], int left, int mid, int right) {           // РћР±СЉРµРґРёРЅРµРЅРёРµ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹С… РїРѕРґРјР°СЃСЃРёРІРѕРІ
+void merge(int arr[], int left, int mid, int right) {           // Объединение отсортированных подмассивов
     int i, j, k;
     int n1 = mid - left + 1;
     int n2 = right - mid;
@@ -85,7 +86,7 @@ void merge(int arr[], int left, int mid, int right) {           // РћР±СЉРµРґРёР
     }
 }
 
-void mergeSort(int arr[], int left, int right) {                // РЎРѕСЂС‚РёСЂРѕРІРєР° СЃР»РёСЏРЅРёРµРј
+void mergeSort(int arr[], int left, int right) {                // Сортировка слиянием
     if (left < right) {
         int mid = left + (right - left) / 2;
 
@@ -96,7 +97,7 @@ void mergeSort(int arr[], int left, int right) {                // РЎРѕСЂС‚РёСЂР
     }
 }
 
-int partition(int arr[], int low, int high) {                   // Р¤СѓРЅРєС†РёСЏ СЂР°Р·РґРµР»РµРЅРёСЏ
+int partition(int arr[], int low, int high) {                   // Функция разделения
     int pivot = arr[high];
     int i = low - 1;
 
@@ -112,7 +113,7 @@ int partition(int arr[], int low, int high) {                   // Р¤СѓРЅРєС†РёС
     return i + 1;
 }
 
-void quickSort(int arr[], int low, int high) {                  // Р‘С‹СЃС‚СЂР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
+void quickSort(int arr[], int low, int high) {                  // Быстрая сортировка
     if (low < high) {
         int pi = partition(arr, low, high);
 
@@ -121,7 +122,7 @@ void quickSort(int arr[], int low, int high) {                  // Р‘С‹СЃС‚СЂР°С
     }
 }
 
-void shellSort(int arr[], int n, int intervals[], int length) { // РЎРѕСЂС‚РёСЂРѕРІРєР° РЁРµР»Р»Р°
+void shellSort(int arr[], int n, int intervals[], int length) { // Сортировка Шелла
     for (int k = 0; k < length; k++) {
         int interval = intervals[k];
 
@@ -139,7 +140,7 @@ void shellSort(int arr[], int n, int intervals[], int length) { // РЎРѕСЂС‚РёСЂР
 }
 
 
-void buildHeap(int arr[], int n, int i) {                       // РџРёСЂР°РјРёРґР° РЅР° РѕСЃРЅРѕРІРµ РјР°СЃСЃРёРІР°
+void buildHeap(int arr[], int n, int i) {                       // Пирамида на основе массива
     int largest = i;         
     int leftChild = 2 * i + 1;     
     int rightChild = 2 * i + 2;    
@@ -157,7 +158,7 @@ void buildHeap(int arr[], int n, int i) {                       // РџРёСЂР°РјРёР
     }
 }
 
-void heapSort(int arr[], int n) {                               // РџРёСЂР°РјРёРґР°Р»СЊРЅР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
+void heapSort(int arr[], int n) {                               // Пирамидальная сортировка
     for (int i = n / 2 - 1; i >= 0; i--)
         buildHeap(arr, n, i);
 
@@ -169,7 +170,7 @@ void heapSort(int arr[], int n) {                               // РџРёСЂР°РјРёР
 
 const int RUN = 32;
 
-void insertionSort2(int arr[], int left, int right) {           // РЎРѕСЂС‚РёСЂРѕРІРєР° РІСЃС‚Р°РІРєР°РјРё РґР»СЏ Timsort
+void insertionSort2(int arr[], int left, int right) {           // Сортировка вставками для Timsort
     for (int i = left + 1; i <= right; i++) {
         int key = arr[i];
         int j = i - 1;
@@ -251,7 +252,7 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    // РџРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё РёРЅС‚РµСЂРІР°Р»РѕРІ РґР»СЏ СЃРѕСЂС‚РёСЂРѕРІРєРё РЁРµР»Р»Р°
+    // Последовательности интервалов для сортировки Шелла
     int intervals1[] = {5, 3, 1};
     int length1 = sizeof(intervals1) / sizeof(intervals1[0]);
 
@@ -261,57 +262,260 @@ int main()
     int intervals3[] = {2, 1};
     int length3 = sizeof(intervals3) / sizeof(intervals3[0]);
 
-    // Р—Р°РїРѕР»РЅРµРЅРёРµ РјР°СЃСЃРёРІР°
+    // Заполнение массива
     srand(time(0));
 
-    int k = 10;
-    //std::cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ РёСЃС…РѕРґРЅРѕРј РјР°СЃСЃРёРІРµ:";
-    //std::cin >> k;
-
-    int arr[k];                       
-    for (int i = 0; i < 10; i++)
-        arr[i] = 1 + rand() % 100;
+    // Количество элементов в массиве
+    int k = 20;                 
     
+    // Замер времени для графиков
 
+    //auto begin = std::chrono::steady_clock::now();
+    //auto end = std::chrono::steady_clock::now();
+    //auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+    //std::cout << "The time: " << elapsed_ms.count() << " ms\n";
 
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    std::cout << "\nРСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ: ";
-    for (int i = 0; i < n; i++) {
-        std::cout << arr[i] << " ";
-    }
-
-    clock_t t0{}, t1{};
-
-    t0 = clock();
-
-// РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ 
-    selectionSort(arr, n);
-
-    t1 = clock();
-
-   
-    double b = (t1 - t0) / CLOCKS_PER_SEC;
-    std::cout << b;
-
-    std::cout << "Hello";
     
-    //selectionSort(arr, n);
-    //bubbleSort(arr, n);
-    //insertionSort(arr, n);
-    //quickSort(arr, 0, n - 1);
-    //mergeSort(arr, 0, n - 1);
-    //shellSort(arr, n, intervals1, length1); 
-    //shellSort(arr, n, intervals2, length2);
-    //shellSort(arr, n, intervals3, length3);
-    //heapSort(arr, n);
-    //timSort(arr, n);
-    //introsort(arr, n);
+char c;
+do
+    {
+        cout << "\nВыберите сортировку:" << endl
+            << "1 - Сортировка выбором" << endl
+            << "2 - Сортировка вставками" << endl
+            << "3 - Сортировка пузырьком" << endl
+            << "4 - Сортировка слиянием" << endl
+            << "5 - Быстрая сортировка" << endl
+            << "6 - Сортировка Шелла" << endl
+            << "7 - Пирамидальная сортировка" << endl
+            << "8 - TimSort" << endl
+            << "9 - IntroSort" << endl;
+        int number;
+        
+        do
+        {
+            cin >> number;
+            switch (number)
+            {
+                case 1:
+                {
+                    int arr1[k];
+                    for (int i = 0; i < k; i++){ 
+                        arr1[i] = 1 + rand() % 100;
+                    }
 
-    std::cout << "\nРћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ: ";
-    for (int i = 0; i < n; i++) {
-        std::cout << arr[i] << " ";
-    }
+                    int n1 = sizeof(arr1) / sizeof(arr1[0]);
 
+                    std::cout << "\nИсходный массив: ";
+                    for (int i = 0; i < n1; i++) {
+                        std::cout << arr1[i] << " ";
+                    }
+                    
+                    selectionSort(arr1, n1);
+
+                    std::cout << "\nОтсортированный массив: ";
+                    for (int i = 0; i < n1; i++) {
+                        std::cout << arr1[i] << " ";
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    int arr2[k];
+                    for (int i = 0; i < k; i++){ 
+                        arr2[i] = 1 + rand() % 100;
+                    }
+
+                    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+
+                    std::cout << "\nИсходный массив: ";
+                    for (int i = 0; i < n2; i++) {
+                        std::cout << arr2[i] << " ";
+                    }
+                    
+                    insertionSort(arr2, n2);
+
+                    std::cout << "\nОтсортированный массив: ";
+                    for (int i = 0; i < n2; i++) {
+                        std::cout << arr2[i] << " ";
+                    }
+                    break;
+                }
+
+                case 3:
+                {
+                    int arr3[k];
+                    for (int i = 0; i < k; i++){ 
+                        arr3[i] = 1 + rand() % 100;
+                    }
+
+                    int n3 = sizeof(arr3) / sizeof(arr3[0]);
+
+                    std::cout << "\nИсходный массив: ";
+                    for (int i = 0; i < n3; i++) {
+                        std::cout << arr3[i] << " ";
+                    }
+                    
+                    bubbleSort(arr3, n3);
+
+                    std::cout << "\nОтсортированный массив: ";
+                    for (int i = 0; i < n3; i++) {
+                        std::cout << arr3[i] << " ";
+                    }
+                    break;
+                }
+
+                case 4:
+                {
+                    int arr4[k];
+                    for (int i = 0; i < k; i++){ 
+                        arr4[i] = 1 + rand() % 100;
+                    }
+
+                    int n4 = sizeof(arr4) / sizeof(arr4[0]);
+
+                    std::cout << "\nИсходный массив: ";
+                    for (int i = 0; i < n4; i++) {
+                        std::cout << arr4[i] << " ";
+                    }
+                    
+                    mergeSort(arr4, 0, n4 - 1);
+
+                    std::cout << "\nОтсортированный массив: ";
+                    for (int i = 0; i < n4; i++) {
+                        std::cout << arr4[i] << " ";
+                    }
+                    break;
+                }
+
+                case 5:
+                {
+                    int arr5[k];
+                    for (int i = 0; i < k; i++){ 
+                        arr5[i] = 1 + rand() % 100;
+                    }
+
+                    int n5 = sizeof(arr5) / sizeof(arr5[0]);
+
+                    std::cout << "\nИсходный массив: ";
+                    for (int i = 0; i < n5; i++) {
+                        std::cout << arr5[i] << " ";
+                    }
+                    
+                    quickSort(arr5, 0, n5 - 1);
+
+                    std::cout << "\nОтсортированный массив: ";
+                    for (int i = 0; i < n5; i++) {
+                        std::cout << arr5[i] << " ";
+                    }
+                    break;
+                }
+
+                case 6:
+                {
+                    int arr6[k];
+                    for (int i = 0; i < k; i++){ 
+                        arr6[i] = 1 + rand() % 100;
+                    }
+
+                    int n6 = sizeof(arr6) / sizeof(arr6[0]);
+
+                    std::cout << "\nИсходный массив: ";
+                    for (int i = 0; i < n6; i++) {
+                        std::cout << arr6[i] << " ";
+                    }
+                    
+                    shellSort(arr6, n6, intervals1, length1);
+
+                    std::cout << "\nОтсортированный массив: ";
+                    for (int i = 0; i < n6; i++) {
+                        std::cout << arr6[i] << " ";
+                    }              
+                    break;
+                }
+
+                case 7:
+                {
+                    int arr7[k];
+                    for (int i = 0; i < k; i++){ 
+                        arr7[i] = 1 + rand() % 100;
+                    }
+
+                    int n7 = sizeof(arr7) / sizeof(arr7[0]);
+
+                    std::cout << "\nИсходный массив: ";
+                    for (int i = 0; i < n7; i++) {
+                        std::cout << arr7[i] << " ";
+                    }
+                    
+                    heapSort(arr7, n7);
+
+                    std::cout << "\nОтсортированный массив: ";
+                    for (int i = 0; i < n7; i++) {
+                        std::cout << arr7[i] << " ";
+                    }
+                    break;
+                }
+
+                case 8:
+                {
+                    int arr8[k];
+                    for (int i = 0; i < k; i++){ 
+                        arr8[i] = 1 + rand() % 100;
+                    }
+
+                    int n8 = sizeof(arr8) / sizeof(arr8[0]);
+
+                    std::cout << "\nИсходный массив: ";
+                    for (int i = 0; i < n8; i++) {
+                        std::cout << arr8[i] << " ";
+                    }
+                    
+                    timSort(arr8, n8);
+
+                    std::cout << "\nОтсортированный массив: ";
+                    for (int i = 0; i < n8; i++) {
+                        std::cout << arr8[i] << " ";
+                    }
+                    break;
+                }
+
+                case 9:
+                {
+                    int arr9[k];
+                    for (int i = 0; i < k; i++){ 
+                        arr9[i] = 1 + rand() % 100;
+                    }
+
+                    int n9 = sizeof(arr9) / sizeof(arr9[0]);
+
+                    std::cout << "\nИсходный массив: ";
+                    for (int i = 0; i < n9; i++) {
+                        std::cout << arr9[i] << " ";
+                    }
+                    
+                    introsort(arr9, n9);
+
+                    std::cout << "\nОтсортированный массив: ";
+                    for (int i = 0; i < n9; i++) {
+                        std::cout << arr9[i] << " ";
+                    }
+                    break;
+                }
+                default:
+                    cout << "Такого пункта нет. \n> ";
+                    break;
+            }
+
+        } while (number < 1 || number > 9);
+
+        
+        cout << "\nПродолжить работу? y/n -->";
+        cin >> c;
+    } while (c == 'y' || c == 'Y');
+
+    system("pause");
+    
     return 0;
 };
